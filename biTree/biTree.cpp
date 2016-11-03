@@ -182,7 +182,7 @@ void feiDiGuiPostOrderTraverse(BiTree T)
 	q = NULL;
 	while (p || !stackEmpty(S))
 	{
-		if (p && q == p->rchild)
+		if (p)
 		{
 			push(S,p);
 			p = p->lchild;
@@ -199,8 +199,9 @@ void feiDiGuiPostOrderTraverse(BiTree T)
 			{
 				pop(S, p);
 				cout << p->data << "   ";
-				q = p;
-				p = getTop(S);
+				pop(S, p);
+				cout << p->data << "   ";
+				p = p->rchild;
 			}
 		}
 
@@ -290,10 +291,9 @@ int leafNodeCount(BiTree T)
 {
 	if (T)
 	{
-		int n = 0;
 		if (!T->lchild && !T->rchild)
-			n = 1;
-		return leafNodeCount(T->lchild) + leafNodeCount(T->rchild) + n;
+			return 1;
+		return leafNodeCount(T->lchild) + leafNodeCount(T->rchild);
 	}
 	return 0;
 }
